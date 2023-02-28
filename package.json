@@ -1,9 +1,7 @@
 {
   "name": "@akdasa-studios/shlokas-uikit",
-  "version": "0.0.3",
-  "files": [
-    "./src/components/*"
-  ],
+  "version": "0.0.4",
+  "files": ["dist"],
   "exports": {
     ".": {
       "import": "./dist/shlokas-ui-kit.es.js",
