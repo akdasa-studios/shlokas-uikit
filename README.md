@@ -1,1 +1,5 @@
-# shlokas-uikit
+# Shlokas UI Kit
+
+```
+npm run storybook
+```
