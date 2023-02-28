@@ -1,6 +1,6 @@
 {
   "name": "@akdasa-studios/shlokas-uikit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "files": [
     "./src/components/*"
