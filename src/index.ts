@@ -1,0 +1,1 @@
+export { default as DarkImage } from './components/DarkImage.vue'

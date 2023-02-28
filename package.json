@@ -1,17 +1,18 @@
 {
   "name": "@akdasa-studios/shlokas-uikit",
-  "version": "0.0.2",
-  "type": "module",
+  "version": "0.0.3",
   "files": [
     "./src/components/*"
   ],
   "exports": {
     ".": {
-      "import": "./src/components/index.ts",
-      "require": "./src/components/index.ts"
+      "import": "./dist/shlokas-ui-kit.es.js",
+      "require": "./dist/shlokas-ui-kit.uml.js"
     }
   },
+  "types": "./dist/types/index.d.ts",
   "scripts": {
+    "build": "vite build && vue-tsc --emitDeclarationOnly && mv dist/components/* dist",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
