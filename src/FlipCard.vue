@@ -1,18 +1,27 @@
 <template>
     <div class="card">
-        <div class="face face--front" :class="$attrs.class">
-            <slot name="front" />
+        <div class="face face--front" :class="cardClass">
+            <div :class="sideClass">
+                <slot name="front" />
+            </div>
         </div>
 
-        <div class="face face--back" :class="$attrs.class">
-            <slot name="back" />
+        <div class="face face--back" :class="cardClass">
+            <div :class="sideClass">
+                <slot name="back" />
+            </div>
+        </div>
+
+        <div class="face no-events" :class="cardClass">
+            <div v-show="showOverlay" :class="sideClass">
+                <slot name="overlay" />
+            </div>
         </div>
     </div>
 </template>
 
-
 <script lang="ts" setup>
-import { computed, defineProps, toRefs, ref } from 'vue'
+import { computed, defineProps, toRefs, withDefaults } from 'vue'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -20,31 +29,37 @@ import { computed, defineProps, toRefs, ref } from 'vue'
 
 export interface Props {
     flipped: boolean,
-    margin?: string
+    showOverlay: boolean
+    sideClass?: string
+    cardClass?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    margin: '0px'
+    flipped: false, showOverlay: false,
+    sideClass: undefined
 })
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const { flipped, margin } = toRefs(props)
+const { flipped, sideClass, showOverlay } = toRefs(props)
 const flipAngle = computed(() => flipped.value ? 180 : 0)
 </script>
 
+
 <style scoped lang="scss">
 $flipAngleFront: calc(v-bind(flipAngle) * 1deg);
-$flipAngleBack:  calc(v-bind(flipAngle) * 1deg - 180deg);
-$margin:         v-bind(margin);
+$flipAngleBack: calc(v-bind(flipAngle) * 1deg - 180deg);
 
 .card {
-    width: calc(100% -  ($margin * 2));
-    height: calc(100% - ($margin * 2));
-    translate: $margin $margin;
-    perspective: 900px;
+    width: 100%;
+    height: 100%;
+    perspective: 2700px;
+
+    touch-action: none;
+    user-select: none;
+    will-change: transform;
 
     .face {
         position: absolute;
@@ -64,5 +79,9 @@ $margin:         v-bind(margin);
             transform: rotateY($flipAngleBack);
         }
     }
+}
+
+.no-events {
+    pointer-events: none;
 }
 </style>

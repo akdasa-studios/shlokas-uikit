@@ -23,9 +23,9 @@ const Template = (args) => ({
   },
   template: `
     <div style="width:200px;height:400px;background-color:gray">
-    <FlipCard v-bind="args" @click="flip">
-      <template #front><div style="background-color:lightblue;height:100%">FRONT</div></template>
-      <template #back><div style="background-color:lightgreen;height:100%">BACK</div></template>
+    <FlipCard v-bind="args" @click="flip" card-class="padding" side-class="side">
+      <template #front>FRONT</template>
+      <template #back>BACK</template>
     </FlipCard>
     </div>`,
 });
@@ -33,5 +33,4 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 Default.args = {
   flipped: false,
-  margin: '10px'
 };
