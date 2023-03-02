@@ -1,4 +1,4 @@
-import AudioPlayer from '../components/AudioPlayer.vue'
+import AudioPlayer from './AudioPlayer.vue'
 import { action } from '@storybook/addon-actions'
 
 export default {

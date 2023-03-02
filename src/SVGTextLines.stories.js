@@ -1,18 +1,9 @@
-import SVGTextLines from '../components/SVGTextLines.vue';
+import SVGTextLines from './SVGTextLines.vue';
 
 export default {
   title: 'Core/SVGTextLines',
   component: SVGTextLines,
   argTypes: {
-    // mode: {
-    //   options: ['grayscale', 'invert']
-    // }
-    // backgroundColor: { control: 'color' },
-    // onClick: {},
-    // size: {
-    //   control: { type: 'select' },
-    //   options: ['small', 'medium', 'large'],
-    // },
   },
 };
 

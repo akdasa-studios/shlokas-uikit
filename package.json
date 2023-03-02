@@ -1,6 +1,6 @@
 {
   "name": "@akdasa-studios/shlokas-uikit",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "files": [
     "dist"
   ],
@@ -18,7 +18,7 @@
   "types": "./dist/index.d.ts",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "vite build && vue-tsc --emitDeclarationOnly && mv dist/components/* dist",
+    "build": "vite build && vue-tsc --emitDeclarationOnly",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
