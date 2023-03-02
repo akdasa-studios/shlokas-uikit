@@ -42,7 +42,7 @@ const emit = defineEmits<Emits>()
 
 const audioRef = ref()
 const { uri, title, artist, loop, album, playing } = toRefs(props)
-const player = useMediaControls(audioRef)
+const player = useMediaControls(audioRef, { src: uri })
 
 // If the audio file changes, stop the player
 watch(uri, () => { player.playing.value = false })
