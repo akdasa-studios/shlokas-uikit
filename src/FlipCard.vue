@@ -12,31 +12,38 @@
 
 
 <script lang="ts" setup>
-import { computed, defineProps, toRefs, defineEmits } from 'vue'
+import { computed, defineProps, toRefs, ref } from 'vue'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
 /* -------------------------------------------------------------------------- */
 
-const props = defineProps<{
-    flipped: boolean
-}>()
+export interface Props {
+    flipped: boolean,
+    margin?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    margin: '0px'
+})
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const { flipped } = toRefs(props)
+const { flipped, margin } = toRefs(props)
 const flipAngle = computed(() => flipped.value ? 180 : 0)
 </script>
 
 <style scoped lang="scss">
 $flipAngleFront: calc(v-bind(flipAngle) * 1deg);
-$flipAngleBack: calc(v-bind(flipAngle) * 1deg - 180deg);
+$flipAngleBack:  calc(v-bind(flipAngle) * 1deg - 180deg);
+$margin:         v-bind(margin);
 
 .card {
-    width: 100%;
-    height: 100%;
+    width: calc(100% -  ($margin * 2));
+    height: calc(100% - ($margin * 2));
+    translate: $margin $margin;
     perspective: 900px;
 
     .face {
