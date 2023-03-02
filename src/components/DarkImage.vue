@@ -3,7 +3,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, toRefs, withDefaults } from 'vue';
+import { computed, defineProps, toRefs, withDefaults } from 'vue'
+
+/* -------------------------------------------------------------------------- */
+/*                                  Inetrface                                 */
+/* -------------------------------------------------------------------------- */
 
 export interface Props {
     src: string
@@ -15,6 +19,10 @@ const props = withDefaults(defineProps<Props>(), {
     mode: 'grayscale',
     isDark: false
 })
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
 
 const { isDark } = toRefs(props)
 const darkMode = computed(() => isDark.value ? props.mode : undefined)

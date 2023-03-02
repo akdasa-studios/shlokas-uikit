@@ -36,6 +36,7 @@ function getYPos(idx: number): number {
 }
 
 function recalculateSize() {
+    if (!svg.value) { return }
     var bbox = svg.value.getBBox()
     const compensate = props.lineHeight / 2
     const width = bbox.width + props.margin
