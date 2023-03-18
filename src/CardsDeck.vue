@@ -5,12 +5,12 @@
         :key="item.id"
         :class="cardClass"
         :style="props.computeStyle(item)"
-        @touchstart="$event => onEvent($event, 'start', item)"
-        @touchmove="$event => onEvent($event, 'moving', item)"
-        @touchend="$event => onEvent($event, 'moved', item)"
-        @mousedown="$event => onEvent($event, 'start', item)"
-        @mousemove="$event => onEvent($event, 'moving', item)"
-        @mouseup="$event => onEvent($event, 'moved', item)"
+        @touchstart="$event => onEvent($event, 'touch', 'start', item)"
+        @touchmove="$event => onEvent($event, 'touch', 'moving', item)"
+        @touchend="$event => onEvent($event, 'touch', 'moved', item)"
+        @mousedown="$event => onEvent($event, 'mouse', 'start', item)"
+        @mousemove="$event => onEvent($event, 'mouse', 'moving', item)"
+        @mouseup="$event => onEvent($event, 'mouse', 'moved', item)"
       >
         <slot :card="item" />
       </div>
@@ -77,16 +77,16 @@
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  type InteractionEvent = TouchEvent | MouseEvent
+  type InteractionEventType = 'mouse' | 'touch' // fuck you Safari
   type ActionType = 'start' | 'moving' | 'moved'
   type Position = [number, number]
 
 
-  function getPosition(event: InteractionEvent): Position {
-    if (event instanceof TouchEvent) {
+  function getPosition(event: any, type: InteractionEventType): Position {
+    if (type === 'touch') {
       const touch = event.touches[0] || event.changedTouches[0]
       return [touch.pageX, touch.pageY]
-    } else if (event instanceof MouseEvent) {
+    } else if (type === 'mouse') {
       return [event.clientX, event.clientY]
     }
     return [0, 0]
@@ -94,14 +94,15 @@
 
 
   function onEvent(
-    event: InteractionEvent,
+    event: any,
+    eventType: InteractionEventType,
     type: ActionType,
     card: Card,
   ) {
-    const currentPosition = getPosition(event)
+    const currentPosition = getPosition(event, eventType)
 
     if (type === 'start') {
-      startPosition = getPosition(event)
+      startPosition = getPosition(event, eventType)
     } else if (startPosition) {
       emit(type as any, card, startPosition, currentPosition)
       if (type === 'moved') { startPosition = undefined }
