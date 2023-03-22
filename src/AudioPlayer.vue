@@ -14,6 +14,7 @@ import { ref, toRefs, watch, withDefaults, defineEmits } from 'vue'
 export interface Props {
     uri?: string,
     playing?: boolean,
+    position?: number,
     title?: string,
     artist?: string,
     album?: string,
@@ -31,7 +32,7 @@ export interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    uri: '', playing: false, title: '', artist: '', album: '', loop: false
+    uri: '', playing: false, title: '', artist: '', album: '', loop: false, position:0
 })
 
 const emit = defineEmits<Emits>()
@@ -41,11 +42,11 @@ const emit = defineEmits<Emits>()
 /* -------------------------------------------------------------------------- */
 
 const audioRef = ref()
-const { uri, title, artist, loop, album, playing } = toRefs(props)
+const { uri, title, artist, loop, album, playing, position } = toRefs(props)
 const player = useMediaControls(audioRef, { src: uri })
 
 // If the audio file changes, stop the player
-watch(uri, () => { player.playing.value = false })
+watch(uri, () => { player.playing.value = false;player.playing.value = true })
 watch([player.playing, player.currentTime], () => onPlayingStatusChanged())
 
 // If the title or artist changes, update the media session
@@ -62,6 +63,7 @@ watch([title, artist], () => {
 })
 
 syncRef(playing, player.playing, { direction: 'ltr' })
+syncRef(position, player.currentTime, { direction: 'both' })
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */

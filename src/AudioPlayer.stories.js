@@ -11,6 +11,9 @@ export default {
     playing: {
       control: { type: 'boolean' }
     },
+    position: {
+      control: { type: 'number' }
+    }
   },
 };
 
